@@ -1,0 +1,373 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass book
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Reasonable Programming
+\end_layout
+
+\begin_layout Chapter
+Draft
+\end_layout
+
+\begin_layout Section
+Freewriting
+\end_layout
+
+\begin_layout Standard
+People talk about writing 
+\begin_inset Quotes eld
+\end_inset
+
+readable
+\begin_inset Quotes erd
+\end_inset
+
+ code.
+ By this the mean code that they can follow and understand.
+ Perhaps it's well-commented, though perhaps it's just plainly written.
+ Readable code is a nice quality, but it's not enough.
+ Working with code, using code, maintaining code, rewriting code, and extending
+ code means being able to reason about the code.
+ This is different than being able to easily read code.
+ Reading code is really about reading the literal statements that are part
+ of a section of code.
+ It has little to do with the functions or classes that are used when writing
+ that code.
+ However, this is the crux of being able to reason about code.
+ When you call a function, have you supplied arguments that the function
+ was designed to handle? Will it behave well for all kinds of inputs? Even
+ in a statically typed language you must be concerned about the actual objects
+ that you pass in.
+ The object may implement the letter of the interface, but is it well behaved
+ and consistent.
+ The ubiquitious 
+\begin_inset Quotes eld
+\end_inset
+
+null pointer
+\begin_inset Quotes erd
+\end_inset
+
+ exception runs rampant through running Java code.
+\end_layout
+
+\begin_layout Standard
+Reasonable code is code that you can literally reason about.
+ It is similar to proving that code is correct, though less formal and much
+ more tractable.
+ Reasonable code is written so that it is easy to argue about its correctness.
+ In that sense, it's related to formal argumentation where your claim might
+ be that a function will correctly return a value given a known set of inputs.
+ You have evidence and provide a warrant to show that it supports your claim.
+ Perhaps, you explicitly state assumptions about the inputs.
+ Better, you can filter/transform your inputs so that your assumptions are
+ self-evident.
+ Strong, valid assumptions make for cleaner, reasonable, 
+\emph on
+and
+\emph default
+ more readable code.
+\end_layout
+
+\begin_layout Standard
+A program that executes reasonable code becomes more deterministic, and
+ hence more reliable, over the course of an execution path.
+ Reasonable code ensures that strong, valid assumptions can be made regarding
+ its outputs/return values.
+ A function that calls a series of reasonable functions is more likely to
+ be reasonable.
+\end_layout
+
+\begin_layout Standard
+Reasonable code has naming conventions which convey information about the
+ nature of the functions.
+ By default, reasonable functions should 
+\emph on
+not
+\emph default
+ have side effects.
+ They take inputs and return outputs.
+ The inputs should be unaffected by the function.
+ The context in which the function is called should also be unaffected by
+ the function.
+ In some languages (like Python), you must take extra care to ensure that
+ inputs are not affected by the execution of a function.
+ A function that changes some of its inputs (or the context of the function)
+ should be named to make this apparent.
+ Reasonable code has conventions on argument order.
+ For instance, inputs that won't be changed should be first, inputs that
+ store results should be last.
+ Another example is that callback functions will be called with a potential
+ error as its first argument.
+\end_layout
+
+\begin_layout Subsection
+Relation to testing
+\end_layout
+
+\begin_layout Standard
+Tests figure less prominently when writing reasonable code.
+ A hallmark of reasonable code is that you understand why it should work
+ as written.
+ It should never be a surprise that reasonable code works properly the first
+ time.
+\end_layout
+
+\begin_layout Standard
+Testing verifies that code works properly.
+ Testing checks inputs that the developer may have overlooked.
+ Testing can be used to scaffold the development of a piece of code, but
+ it cannot be used exclusively to argue that code is correct.
+ Tests suffer from their own assumptions.
+ For instance, a section of code may be entirely correct but a test may
+ make an erroneous assumption and fail.
+\end_layout
+
+\begin_layout Subsection
+Reasoning and Debugging
+\end_layout
+
+\begin_layout Standard
+All software debugging is an exercise in reasoning about code.
+ During a debugging session, we check and double check our assumptions.
+ We examine code and try to reason about what's happening.
+ Reasonable code makes debugging easier.
+ This alone justifies the effort the write reasonable code.
+ The nature of a failure should be easily traced to assumptions that a section
+ of code has made.
+ Reasonable code should explicitly state assumptions and why they are being
+ made.
+\end_layout
+
+\begin_layout Subsection
+Rewrite when there are too many assumptions
+\end_layout
+
+\begin_layout Standard
+Code that makes too many assumptions should be rewritten.
+ The more assumptions a section of code makes, the more ways there are for
+ something to go wrong.
+ You cannot rely on callers of your function.
+ People will forget to set things up correctly.
+ People may not be aware of the assumptions you are making.
+ Assumptions on the caller of a function create dependencies between code.
+ Dependencies are points of failure.
+\end_layout
+
+\begin_layout Subsection
+Rewrite when assumptions are unreasonable
+\end_layout
+
+\begin_layout Standard
+If assumptions are unreasonable, then the code is 
+\begin_inset Quotes eld
+\end_inset
+
+unreasonable
+\begin_inset Quotes erd
+\end_inset
+
+.
+ It may be too much effort to ensure that assumptions are met.
+\end_layout
+
+\begin_layout Subsection
+Nature of bitrot
+\end_layout
+
+\begin_layout Standard
+Bitrot is a mechanism that causes code that is not actively maintained tends
+ to fail over time.
+ It is related to entropy.
+ Code that operates in a fixed context will not rot.
+ For example, the firmware on a calculator will always behave the same way.
+ It will operate as designed year after year without any manual intervention.
+\end_layout
+
+\begin_layout Standard
+Code that runs in an environment relies on other code and libraries and
+ services in that environment.
+ A code change to support a new feature or address a defect may be implemented
+ in many different ways.
+ Some implementations will cause your section of code to malfunction; some
+ implementations will result in your code functioning properly.
+ You cannot know for sure if a new feature will or won't break your code.
+ If many implementations break your code and only a few do not, then there
+ is a higher probability of a change to break your code.
+ Every change has a probability of breaking your code.
+ When code breaks in this way without being modified itself, it is called
+ 
+\begin_inset Quotes eld
+\end_inset
+
+bitrot
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Bitrot can happen for other reasons as well.
+ A server may be rebooted.
+ A program or library upgraded.
+ A service renamed.
+ A configuration changed.
+ An A/B test being ramped.
+ Etc.
+\end_layout
+
+\begin_layout Standard
+Code that has high levels of bitrot also has high levels of entropy.
+ Entropy in this sense is the number of different ways that code can be
+ written.
+ The higher the software entropy, the fewer the assumptions can be made
+ regarding the behavior of any given section of code and the fewer the assumptio
+ns can be made on argument order and function behavior.
+\end_layout
+
+\begin_layout Standard
+An analogy is illustrative here.
+ In a coin flipping experiment, the probability of getting a string of heads
+ or a string of tails is very low, while the probability of getting an even
+ mix of them is high.
+ Strings of heads or tails are analagous to reasonable code.
+ You can make strong assumptions about what you expect to see.
+ That is, you can reason about the code without having to carefully examine
+ it or examine the context in which it is used.
+ Unreasonable code is analogous to having a mix of heads and tails.
+ You can never tell how code expects to be used or can be expected to behave.
+\end_layout
+
+\begin_layout Standard
+Bitrot can be controlled by controlling the entropy by writing reasonable
+ code.
+ It is natural for code to drift towards high entropy.
+ It takes effort to keep the entropy of code down, but the benefit is substantia
+l.
+\end_layout
+
+\begin_layout Subsection
+Tower Defense Architecture
+\end_layout
+
+\begin_layout Standard
+In a 
+\begin_inset Quotes eld
+\end_inset
+
+tower defense
+\begin_inset Quotes erd
+\end_inset
+
+ game, a line of enemies marches towards an area that you are charged with
+ protecting.
+ You can place towers along there path to thin them out and destroy them
+ as they march forwards.
+ A 
+\begin_inset Quotes eld
+\end_inset
+
+reasonable architecture
+\begin_inset Quotes erd
+\end_inset
+
+ also has these features.
+ Here, you have sections of code or services that process data flowing through
+ your system.
+ Input from the real world is messy and unpredictable.
+ It is anaogous to the enemy in a tower defense game.
+ As the data moves along its path through our various services/functions,
+ its entropy is gradually reduced.
+ For example, the code in the first phase must be prepared to handle high
+ entropy input.
+ The data leaving the first phase must have more regular, lower entropy.
+ As it enters the second phase, we can make more assumptions about the data.
+ As the data flows through more and more phases, it becomes increasingly
+ regular to the point where we can make very strong assumptions about the
+ properties of the data.
+ The stronger the assumptions, the cleaner the code we can write and still
+ be reasonable code.
+\end_layout
+
+\begin_layout Section
+More topics
+\end_layout
+
+\begin_layout Itemize
+Taking an argumentation perspective 
+\end_layout
+
+\begin_layout Itemize
+Reducing coupling reduces assumptions
+\end_layout
+
+\begin_layout Itemize
+The more hands that touch code, the worse it gets
+\end_layout
+
+\begin_layout Itemize
+Combinatorial explosion
+\end_layout
+
+\end_body
+\end_document
